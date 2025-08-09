@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>تسبيح — شارك الأجر</title>
+<meta name="theme-color" content="#0b1514"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1514;--bg2:#0f1f1d;--card:#0f2321;--edge:#1a3733;
+    --text:#eef8f6;--muted:#a8c9c2;--btn1:#19c77a;--btn2:#0da261;
+    --accent1:#27e3a1;--accent2:#0fa563;--ring:#173a35;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{
+    margin:0;min-height:100dvh;display:grid;place-items:center;
+    background:
+      radial-gradient(1000px 600px at 0% -10%, #154d45 0, transparent 60%),
+      radial-gradient(1200px 600px at 110% 0%, #0a3b35 0, transparent 60%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    color:var(--text);font-family:"Cairo",system-ui,-apple-system,"Segoe UI",Arial;
+    overflow-x:hidden;
+  }
+  .wrap{width:min(96vw,880px);padding:22px;display:none}
+  .show{display:block}
+
+  .card{
+    background:linear-gradient(180deg,#0f2422,var(--card));
+    border:1px solid var(--edge);border-radius:26px;padding:26px;text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.45);
+  }
+
+  /* لوجو أعلى البطاقة */
+  .logo{
+    width:72px;height:72px;margin:0 auto 10px;border-radius:18px;
+    display:grid;place-items:center;
+    background:linear-gradient(145deg,var(--accent1),var(--accent2));
+    box-shadow:0 10px 26px rgba(31,214,128,.25), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .logo svg{width:40px;height:40px;fill:#08352f;opacity:.9}
+
+  h1{margin:6px 0 10px;font-weight:900;font-size:clamp(1.1rem,3vw,1.6rem)}
+  .muted{color:var(--muted)}
+  .btn{
+    display:inline-grid;place-items:center;gap:6px;grid-auto-flow:column;
+    padding:12px 22px;border-radius:12px;border:none;cursor:pointer;
+    color:#fff;background:linear-gradient(145deg,var(--btn1),var(--btn2));
+    font-weight:900;box-shadow:0 14px 30px rgba(31,214,128,.25), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .btn:active{transform:translateY(1px)}
+
+  /* نص الذكر */
+  #dhikrText{
+    margin:10px auto 14px;line-height:1.9;text-align:center;
+    font-size:0;opacity:0;transform:translateY(-6px);
+    transition:opacity .25s, transform .25s, font-size .25s;min-height:3.2em;
+  }
+  #dhikrText.showTxt{font-size:clamp(1rem,3.2vw,1.25rem);opacity:1;transform:translateY(0)}
+  #dhikrText.shake{animation:sh .30s ease}
+  @keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(3px)}50%{transform:translateX(-3px)}75%{transform:translateX(2px)}}
+
+  /* الحلقة */
+  canvas{width:min(78vw,360px);height:min(78vw,360px);max-width:360px;max-height:360px}
+  .ringWrap{display:grid;place-items:center;margin:12px auto}
+  .tapHint{margin-top:8px;color:var(--muted)}
+
+  /* النهاية */
+  .bigShare{
+    margin:14px auto 10px;width:min(78vw,280px);height:min(78vw,280px);border-radius:50%;border:none;
+    display:grid;place-items:center;background:linear-gradient(145deg,var(--btn1),var(--btn2));
+    color:#fff;font-weight:900;cursor:pointer;
+    box-shadow:12px 12px 22px rgba(10,59,39,.75),-12px -12px 22px rgba(31,214,128,.2),
+               inset 8px 8px 16px rgba(0,0,0,.35), inset -8px -8px 16px rgba(255,255,255,.07)
+  }
+  .visits{margin:8px 0 16px;color:var(--muted)}
+  .ads{width:100%;display:grid;place-items:center;margin-top:12px}
+  .ad-box{
+    width:300px;height:250px;background:rgba(255,255,255,.06);
+    border:1px dashed #2f5e57;border-radius:12px;display:grid;place-items:center;
+    color:#bfe6de;font-weight:700
+  }
+  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9999}
+  .paper{position:absolute;width:8px;height:14px;border-radius:2px;opacity:.9;animation:fall 3.2s linear forwards}
+  @keyframes fall{0%{transform:translateY(-10vh) rotate(0)}100%{transform:translateY(110vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+
+<!-- 1) صفحة البداية -->
+<main class="wrap show" id="start">
+  <section class="card">
+    <div class="logo" aria-hidden="true">
+      <!-- لوجو SVG بسيط (تستطيع استبداله بصورة) -->
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 6Zm3.5 11h-7a1 1 0 0 1 0-2h2v-3h-1a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h3a1 1 0 0 1 0 2Z"/></svg>
+    </div>
+    <h1>﷽</h1>
+    <p class="muted">﴿ سَبِّحِ اسْمَ رَبِّكَ الأَعْلَى ﴾</p>
+    <button class="btn" id="go">ابدأ التسبيح</button>
+  </section>
+</main>
+
+<!-- 2) صفحة التسبيح -->
+<main class="wrap" id="app">
+  <section class="card">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 6Zm3.5 11h-7a1 1 0 0 1 0-2h2v-3h-1a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h3a1 1 0 0 1 0 2Z"/></svg>
+    </div>
+    <h1>تسبيح وذكر الله</h1>
+    <p class="muted">اضغط الحلقة 10 مرات، ثم تُفتح صفحة المشاركة</p>
+
+    <div id="dhikrText">سبحان الله والحمد لله ولا إله إلا الله والله أكبر</div>
+
+    <div class="ringWrap">
+      <canvas id="ring" width="360" height="360" aria-label="حلقة التسبيح"></canvas>
+      <div class="tapHint">اضغط داخل الحلقة</div>
+    </div>
+
+    <div class="muted">
+      المتبقي: <b id="left">10</b> / 10 — العدّاد: <b id="count">0</b>
+    </div>
+
+    <button class="btn" id="backStart" style="margin-top:10px">↩ العودة لصفحة البداية</button>
+  </section>
+</main>
+
+<!-- 3) صفحة النهاية -->
+<main class="wrap" id="end">
+  <section class="card">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 6Zm3.5 11h-7a1 1 0 0 1 0-2h2v-3h-1a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h3a1 1 0 0 1 0 2Z"/></svg>
+    </div>
+    <h1>جزاك الله خيرًا</h1>
+    <p class="visits">زائروا الصفحة: <b id="visitors">—</b></p>
+
+    <button id="shareBtn" class="bigShare">📤 شارك الأجر على واتساب</button>
+
+    <!-- مساحة إعلانية -->
+    <div class="ads">
+      <div class="ad-box" id="ad-space">مساحة إعلانية 300×250</div>
+    </div>
+
+    <!-- وسيلة تواصل للإعلانات -->
+    <div style="margin-top:16px;font-size:16px;color:#cfe7e2">
+      📩 للإعلانات والتواصل:
+      <a href="mailto:abd30.3000@gmail.com" style="color:#7fd1ff;text-decoration:none">abd30.3000@gmail.com</a>
+    </div>
+
+    <button class="btn" id="backStart2" style="margin-top:10px">↩ العودة لصفحة البداية</button>
+  </section>
+</main>
+
+<!-- طبقة المؤثرات -->
+<div id="confetti" class="confetti"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* إعداداتك */
+  const SHARE_URL = "https://share.google/y1S9s1xfewux5ikaA"; // غيّره عند الحاجة
+  const DHIKR = "سبحان الله والحمد لله ولا إله إلا الله والله أكبر";
+
+  /* تبديل الشاشات */
+  const start = document.getElementById("start");
+  const app   = document.getElementById("app");
+  const end   = document.getElementById("end");
+  const go = document.getElementById("go");
+  const backStart = document.getElementById("backStart");
+  const backStart2 = document.getElementById("backStart2");
+  function show(which){
+    start.classList.remove("show"); app.classList.remove("show"); end.classList.remove("show");
+    (which==="start"?start:which==="app"?app:end).classList.add("show");
+  }
+  go.addEventListener("click", ()=> show("app"));
+  backStart.addEventListener("click", ()=> show("start"));
+  backStart2.addEventListener("click", ()=> show("start"));
+
+  /* الحلقة + الذكر */
+  const dhikrEl=document.getElementById("dhikrText"),
+        leftEl =document.getElementById("left"),
+        countEl=document.getElementById("count"),
+        cv=document.getElementById("ring"),
+        ctx=cv.getContext("2d");
+
+  const DPR=Math.max(1,window.devicePixelRatio||1), SIZE=360;
+  cv.width=SIZE*DPR; cv.height=SIZE*DPR;
+
+  let N=10, left=N, count=0;
+
+  function draw(progress){
+    const w=cv.width, h=cv.height, r=Math.min(w,h)/2 - 22*DPR;
+    ctx.clearRect(0,0,w,h);
+    ctx.save(); ctx.translate(w/2,h/2);
+
+    // خلفية الحلقة
+    ctx.lineWidth = 16*DPR; ctx.strokeStyle = "#173a35";
+    ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.stroke();
+
+    // تقدّم الحلقة
+    const ang = progress * Math.PI*2;
+    const gr = ctx.createLinearGradient(-r,0,r,0);
+    gr.addColorStop(0,"#27e3a1"); gr.addColorStop(1,"#0fa563");
+    ctx.strokeStyle=gr; ctx.lineCap="round";
+    ctx.beginPath(); ctx.arc(0,0,r,-Math.PI/2, -Math.PI/2 + ang); ctx.stroke();
+
+    // نص الوسط
+    ctx.fillStyle="#eef8f6"; ctx.font=(18*DPR)+"px Cairo, system-ui";
+    ctx.textAlign="center"; ctx.fillText("اضغط هنا", 0, 8*DPR);
+
+    ctx.restore();
+  }
+
+  function beep(){
+    try{
+      if(!window._ac) window._ac = new (window.AudioContext||window.webkitAudioContext)();
+      const ac=window._ac, o=ac.createOscillator(), g=ac.createGain();
+      o.type='sine'; o.frequency.value=720; g.gain.value=.06;
+      o.connect(g).connect(ac.destination);
+      const t=ac.currentTime; o.start(t);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+.09); o.stop(t+.11);
+    }catch{}
+  }
+
+  function showDhikr(){
+    dhikrEl.textContent = DHIKR;
+    dhikrEl.classList.remove("showTxt","shake"); void dhikrEl.offsetWidth;
+    dhikrEl.classList.add("showTxt","shake");
+  }
+
+  cv.addEventListener("click", ()=>{
+    if(left<=0) return;
+    if(navigator.vibrate) navigator.vibrate(15);
+    beep();
+    count++; left--;
+    leftEl.textContent = left;
+    countEl.textContent = count;
+    showDhikr();
+    draw((N-left)/N);
+    if(left===0) showEnd();
+  });
+
+  draw(0);
+
+  /* النهاية */
+  const shareBtn = document.getElementById("shareBtn");
+  const visitorsEl = document.getElementById("visitors");
+  const confettiLayer = document.getElementById("confetti");
+
+  shareBtn.addEventListener("click", ()=>{
+    window.open("https://wa.me/?text=" + encodeURIComponent(SHARE_URL), "_blank", "noopener");
+  });
+
+  async function showEnd(){
+    show("end");
+    runConfetti(160, 3200);
+    try{
+      const r = await fetch("https://api.countapi.xyz/hit/tasbih-app/main-page-visitors",{cache:"no-store"});
+      const d = await r.json();
+      visitorsEl.textContent = (typeof d.value==="number") ? d.value.toLocaleString("ar-EG") : "—";
+    }catch{ visitorsEl.textContent = "—"; }
+  }
+
+  function runConfetti(amount=120, duration=3000){
+    confettiLayer.innerHTML = "";
+    confettiLayer.style.display = "block";
+    const colors = ["#fff176","#ffd54f","#ff8a65","#4dd0e1","#aed581","#ba68c8","#f06292","#fff"];
+    const W = innerWidth, H = innerHeight;
+    for(let i=0;i<amount;i++){
+      const p = document.createElement("div");
+      p.className = "paper";
+      p.style.left = (Math.random()*W) + "px";
+      p.style.top  = (-20 - Math.random()*H*0.3) + "px";
+      p.style.background = colors[(Math.random()*colors.length)|0];
+      p.style.animationDelay = (Math.random()*0.8) + "s";
+      p.style.transform = `translateY(-10vh) rotate(${Math.random()*360}deg)`;
+      confettiLayer.appendChild(p);
+    }
+    setTimeout(()=>{ confettiLayer.style.display='none'; confettiLayer.innerHTML=""; }, duration);
+  }
+})();
+</script>
+</body>
+</html>

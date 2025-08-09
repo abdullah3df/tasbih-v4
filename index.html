@@ -31,14 +31,14 @@
     box-shadow:0 24px 60px rgba(0,0,0,.45);
   }
 
-  /* لوجو أعلى البطاقة */
+  /* شعار مسجد */
   .logo{
-    width:72px;height:72px;margin:0 auto 10px;border-radius:18px;
+    width:78px;height:78px;margin:0 auto 10px;border-radius:18px;
     display:grid;place-items:center;
     background:linear-gradient(145deg,var(--accent1),var(--accent2));
     box-shadow:0 10px 26px rgba(31,214,128,.25), inset 0 1px 0 rgba(255,255,255,.12);
   }
-  .logo svg{width:40px;height:40px;fill:#08352f;opacity:.9}
+  .logo svg{width:46px;height:46px;fill:#08352f;opacity:.9}
 
   h1{margin:6px 0 10px;font-weight:900;font-size:clamp(1.1rem,3vw,1.6rem)}
   .muted{color:var(--muted)}
@@ -91,12 +91,14 @@
 <main class="wrap show" id="start">
   <section class="card">
     <div class="logo" aria-hidden="true">
-      <!-- لوجو SVG بسيط (تستطيع استبداله بصورة) -->
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 6Zm3.5 11h-7a1 1 0 0 1 0-2h2v-3h-1a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h3a1 1 0 0 1 0 2Z"/></svg>
+      <!-- أيقونة مسجد (SVG) -->
+      <svg viewBox="0 0 64 64">
+        <path d="M32 6l6 6v6h6v8h6v26H14V26h6v-8h6V12l6-6zM20 38h8v10h-8V38zm16 0h8v10h-8V38z"/>
+      </svg>
     </div>
     <h1>﷽</h1>
     <p class="muted">﴿ سَبِّحِ اسْمَ رَبِّكَ الأَعْلَى ﴾</p>
-    <button class="btn" id="go">ابدأ التسبيح</button>
+    <button class="btn" id="go" type="button">ابدأ التسبيح</button>
   </section>
 </main>
 
@@ -104,7 +106,7 @@
 <main class="wrap" id="app">
   <section class="card">
     <div class="logo" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 6Zm3.5 11h-7a1 1 0 0 1 0-2h2v-3h-1a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h3a1 1 0 0 1 0 2Z"/></svg>
+      <svg viewBox="0 0 64 64"><path d="M32 6l6 6v6h6v8h6v26H14V26h6v-8h6V12l6-6z"/></svg>
     </div>
     <h1>تسبيح وذكر الله</h1>
     <p class="muted">اضغط الحلقة 10 مرات، ثم تُفتح صفحة المشاركة</p>
@@ -120,7 +122,7 @@
       المتبقي: <b id="left">10</b> / 10 — العدّاد: <b id="count">0</b>
     </div>
 
-    <button class="btn" id="backStart" style="margin-top:10px">↩ العودة لصفحة البداية</button>
+    <button class="btn" id="backStart" type="button" style="margin-top:10px">↩ العودة لصفحة البداية</button>
   </section>
 </main>
 
@@ -128,12 +130,12 @@
 <main class="wrap" id="end">
   <section class="card">
     <div class="logo" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 6Zm3.5 11h-7a1 1 0 0 1 0-2h2v-3h-1a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h3a1 1 0 0 1 0 2Z"/></svg>
+      <svg viewBox="0 0 64 64"><path d="M32 6l6 6v6h6v8h6v26H14V26h6v-8h6V12l6-6z"/></svg>
     </div>
     <h1>جزاك الله خيرًا</h1>
     <p class="visits">زائروا الصفحة: <b id="visitors">—</b></p>
 
-    <button id="shareBtn" class="bigShare">📤 شارك الأجر على واتساب</button>
+    <button id="shareBtn" class="bigShare" type="button">📤 شارك الأجر على واتساب</button>
 
     <!-- مساحة إعلانية -->
     <div class="ads">
@@ -146,7 +148,7 @@
       <a href="mailto:abd30.3000@gmail.com" style="color:#7fd1ff;text-decoration:none">abd30.3000@gmail.com</a>
     </div>
 
-    <button class="btn" id="backStart2" style="margin-top:10px">↩ العودة لصفحة البداية</button>
+    <button class="btn" id="backStart2" type="button" style="margin-top:10px">↩ العودة لصفحة البداية</button>
   </section>
 </main>
 
@@ -157,8 +159,10 @@
 (() => {
   "use strict";
 
-  /* إعداداتك */
-  const SHARE_URL = "https://share.google/y1S9s1xfewux5ikaA"; // غيّره عند الحاجة
+  /* ========= إعداداتك ========= */
+  const SHARE_URL = "https://share.google/y1S9s1xfewux5ikaA";  // غيّره إن أردت
+  const COUNT_NAMESPACE = "abdullah3df-tasbih-v4";              // مسار فريد لعداد الزوّار
+  const COUNT_KEY = "visitors";
   const DHIKR = "سبحان الله والحمد لله ولا إله إلا الله والله أكبر";
 
   /* تبديل الشاشات */
@@ -168,13 +172,15 @@
   const go = document.getElementById("go");
   const backStart = document.getElementById("backStart");
   const backStart2 = document.getElementById("backStart2");
+
   function show(which){
     start.classList.remove("show"); app.classList.remove("show"); end.classList.remove("show");
     (which==="start"?start:which==="app"?app:end).classList.add("show");
   }
-  go.addEventListener("click", ()=> show("app"));
-  backStart.addEventListener("click", ()=> show("start"));
-  backStart2.addEventListener("click", ()=> show("start"));
+  // إصلاح زر البداية
+  go.addEventListener("click", ()=> show("app"), {passive:true});
+  backStart.addEventListener("click", ()=> show("start"), {passive:true});
+  backStart2.addEventListener("click", ()=> show("start"), {passive:true});
 
   /* الحلقة + الذكر */
   const dhikrEl=document.getElementById("dhikrText"),
@@ -238,7 +244,7 @@
     showDhikr();
     draw((N-left)/N);
     if(left===0) showEnd();
-  });
+  }, {passive:true});
 
   draw(0);
 
@@ -249,16 +255,27 @@
 
   shareBtn.addEventListener("click", ()=>{
     window.open("https://wa.me/?text=" + encodeURIComponent(SHARE_URL), "_blank", "noopener");
-  });
+  }, {passive:true});
 
   async function showEnd(){
     show("end");
     runConfetti(160, 3200);
+    // عداد الزوار عبر countapi
     try{
-      const r = await fetch("https://api.countapi.xyz/hit/tasbih-app/main-page-visitors",{cache:"no-store"});
+      const r = await fetch(`https://api.countapi.xyz/hit/${COUNT_NAMESPACE}/${COUNT_KEY}`, {cache:"no-store"});
       const d = await r.json();
-      visitorsEl.textContent = (typeof d.value==="number") ? d.value.toLocaleString("ar-EG") : "—";
-    }catch{ visitorsEl.textContent = "—"; }
+      if (typeof d.value === "number") {
+        visitorsEl.textContent = d.value.toLocaleString("ar-EG");
+      } else {
+        throw new Error("bad count");
+      }
+    }catch{
+      // احتياطي محلي
+      const k="local-visitors-fallback";
+      const v=(parseInt(localStorage.getItem(k)||"0",10)+1);
+      localStorage.setItem(k,String(v));
+      visitorsEl.textContent = v.toLocaleString("ar-EG");
+    }
   }
 
   function runConfetti(amount=120, duration=3000){
